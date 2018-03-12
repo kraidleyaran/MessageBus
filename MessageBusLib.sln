@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusLib", "MessageBus\MessageBusLib.csproj", "{BBDC1DF7-E987-4F3D-9DAC-455CAB5FDD39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBusTests", "MessageBusTests\MessageBusTests.csproj", "{1749CF6E-FD39-4505-A071-09B77EB1C8DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBDC1DF7-E987-4F3D-9DAC-455CAB5FDD39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBDC1DF7-E987-4F3D-9DAC-455CAB5FDD39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBDC1DF7-E987-4F3D-9DAC-455CAB5FDD39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBDC1DF7-E987-4F3D-9DAC-455CAB5FDD39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1749CF6E-FD39-4505-A071-09B77EB1C8DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1749CF6E-FD39-4505-A071-09B77EB1C8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1749CF6E-FD39-4505-A071-09B77EB1C8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1749CF6E-FD39-4505-A071-09B77EB1C8DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
