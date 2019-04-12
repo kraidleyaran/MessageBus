@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MessageBusLib;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace MessageBusTests
 {
@@ -64,6 +65,11 @@ namespace MessageBusTests
 
             Assert.IsTrue(othermessageReceived);
             Assert.AreEqual(otherData, otherTestString);
+        }
+
+        public void TestMethod(TestEvent test)
+        {
+            
         }
 
         [Test]
@@ -182,6 +188,7 @@ namespace MessageBusTests
     {
         public string Data { get; set; }
     }
+
 }
 
 

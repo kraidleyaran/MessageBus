@@ -44,9 +44,20 @@ namespace MessageBusLib
             var msgType = typeof(T);
             if (Subjects.ContainsKey(msgType))
             {
-                Subjects[msgType].RemoveAll(s => s.Receiver == subscriber);
+                Subjects[msgType].RemoveAll(s => s.Receiver == subscriber && s.Filter == filter);
             }
         }
+
+        /*
+        public static void UnsubscribeFromAllMessagesWithFilter(this object subscriber, string filter)
+        {
+            var subjects = Subjects.Values.ToList();
+            foreach (var sub in subjects.Where(subject => subject.Exists(subscribe => subscribe.Receiver == subscriber)))
+            {
+                sub.RemoveAll(s => s.Receiver == subscriber && s.Filter == filter);
+            }
+        }
+        */
 
         public static void UnsubscribeFromAllMessages(this object subscriber)
         {
@@ -63,9 +74,18 @@ namespace MessageBusLib
             var msgType = message.GetType();
             if (Subjects.ContainsKey(msgType))
             {
-                foreach (var sub in Subjects[msgType].FindAll(o => o.Filter == null || o.Filter == ALL_FILTER))
+                var subjects = Subjects[msgType].FindAll(o => o.Filter == null || o.Filter == ALL_FILTER);
+                foreach (var sub in subjects)
                 {
-                    sub.UseAction(message);
+                    if (sub.Receiver != null)
+                    {
+                        sub.UseAction(message);
+                    }
+                    else
+                    {
+                        Subjects[msgType].Remove(sub);
+                    }
+                    
                 }
             }
 
@@ -77,9 +97,17 @@ namespace MessageBusLib
             var msgType = message.GetType();
             if (Subjects.ContainsKey(msgType))
             {
-                foreach (var sub in Subjects[msgType].FindAll(obj => obj.Filter == filter || obj.Filter == ALL_FILTER))
+                var subjects = Subjects[msgType].FindAll(obj => obj.Filter == filter || obj.Filter == ALL_FILTER);
+                foreach (var sub in subjects)
                 {
-                    sub.UseAction(message);
+                    if (sub.Receiver != null)
+                    {
+                        sub.UseAction(message);
+                    }
+                    else
+                    {
+                        Subjects[msgType].Remove(sub);
+                    }
                 }
             }
 
@@ -91,8 +119,25 @@ namespace MessageBusLib
             var msgType = message.GetType();
             if (Subjects.ContainsKey(msgType))
             {
-                var sub = Subjects[msgType].Find(s => s.Receiver == receiver);
-                sub?.UseAction(message);
+                var subs = Subjects[msgType].FindAll(s => s.Receiver == receiver);
+                foreach (var sub in subs)
+                {
+                    sub.UseAction(message);
+                }
+            }
+        }
+
+        public static void SendMessageWithFilterTo<T>(this object sender, T message, object receiver, string filter) where T : EventMessage
+        {
+            message.Sender = sender;
+            var msgType = message.GetType();
+            if (Subjects.ContainsKey(msgType))
+            {
+                var subs = Subjects[msgType].FindAll(s => s.Receiver == receiver && s.Filter == filter);
+                foreach (var sub in subs)
+                {
+                    sub.UseAction(message);
+                }
             }
         }
 
